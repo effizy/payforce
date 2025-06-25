@@ -1,0 +1,164 @@
+
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: fmb
+  description: This is the domain for fairmoney business
+spec:
+  owner: fmb-sre
+ 
+
+--- 
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: payforce
+  description: This is fmb payforce system
+spec:
+  owner: karibu
+  domain: fmb
+  dependsOn:
+    - resource:payforce-db
+
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: pos-service
+  description: pos service for payforce system
+  tags:
+    - dotnet
+  links:
+    - url: https://google.com
+      title: POS-service-link
+      icon: dashboard
+      type: POS-service-link
+spec:
+  type: service
+  lifecycle: production
+  owner: karibu
+  system: payforce
+  dependsOn:
+    - resource:payforce-db
+ 
+
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: file-api
+  description: This is the file api for pos service
+spec:
+  type: openapi
+  lifecycle: production
+  owner: karibu
+  system: payforce
+  apiProvidedBy: pos-service
+  dependsOn:
+    - resource:payforce-db
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: component
+metadata:
+  name: webserve-service
+  description: This is the webserve service for payforce system
+spec:
+  type: service
+  lifecycle: production
+  owner: karibu
+  system: payforce
+  consumesApis:
+    - file-api  
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: payforce-db
+  description: This is the payforce database
+spec:
+  owner: fmb-sre
+  type: database
+  lifecycle: production
+  system: payforce
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: karibu
+  description: The karibu group
+spec:
+  type: business-unit
+  profile:
+    displayName: karibu
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: fmb-sre
+  description: The fmb-sre group  
+spec:
+  type: business-unit
+  profile:
+    displayName: fmb-sre
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: Fisayo
+  description: Fisayo is a member of the fmb-sre group
+spec:
+  memberOf: [fmb-sre] 
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: bogdan
+  description: bogdan is a member of the fmb-sre group
+spec:
+  memberOf: [karibu] 
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: peter
+  description: peter is a member of the karibu group
+spec:
+  memberOf: [karibu]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: John
+  description: John is a member of the karibu group
+spec:
+  memberOf: [karibu]
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: Tunde
+  description: Tunde is a member of the fmb-sre group
+spec:
+  memberOf: [fmb-sre] 
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: Emeka
+  description: Emeka is a member of the fmb-sre group
+spec:
+  memberOf: [fmb-sre] 
