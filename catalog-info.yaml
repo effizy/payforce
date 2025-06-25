@@ -63,7 +63,22 @@ spec:
     info:
       title: File API
       version: 1.0.0
-    paths: {}
+      license:
+        name: Apache-2.0
+    paths:
+      /files:
+        get:
+          summary: Get all files
+          operationId: getFiles
+          responses:
+            '200':
+              description: A list of files
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      type: object    
 
 ---
 apiVersion: backstage.io/v1alpha1
