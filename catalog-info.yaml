@@ -38,6 +38,8 @@ spec:
   lifecycle: production
   owner: karibu
   system: payforce
+  providesApis:
+    - file-api
   dependsOn:
     - resource:payforce-db
  
@@ -55,7 +57,6 @@ spec:
   lifecycle: production
   owner: karibu
   system: payforce
-  apiProvidedBy: pos-service
   dependsOn:
     - resource:payforce-db
   definition: |
