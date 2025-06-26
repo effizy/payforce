@@ -13,6 +13,8 @@ kind: System
 metadata:
   name: payforce
   description: This is fmb payforce system
+  tags:
+    - dotnet
 spec:
   owner: karibu
   domain: fmb
@@ -52,6 +54,8 @@ kind: API
 metadata:
   name: file-api
   description: This is the file api for pos service
+  tags:
+    - dotnet
 spec:
   type: openapi
   lifecycle: production
@@ -87,6 +91,8 @@ kind: Component
 metadata:
   name: webserve-service
   description: This is the webserve service for payforce system
+  tags:
+    - javascript
 spec:
   type: service
   lifecycle: production
@@ -101,6 +107,9 @@ kind: Resource
 metadata:
   name: payforce-db
   description: This is the payforce database
+  tags:
+    - database
+    - AzureSQL
 spec:
   owner: fmb-sre
   type: database
